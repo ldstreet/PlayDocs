@@ -7,7 +7,7 @@ Command line tool for converting Swift Playgrounds to Markdown and HTML.
 
 To install the commandline tool:
 ```
-git clone https://github.com/ldstreet/PlayDocs.git`
+git clone https://github.com/ldstreet/PlayDocs.git
 cd PlayDocs
 make install
 ```
