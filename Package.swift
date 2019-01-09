@@ -5,6 +5,10 @@ import PackageDescription
 
 let package = Package(
     name: "PlayDocs",
+    products: [
+        .executable(name: "playdocs", targets: ["PlayDocs"]),
+        .library(name: "PlayDocsKit", targets: ["PlayDocsKit"])
+    ],
     dependencies: [
         /// 💻 APIs for creating interactive CLI tools.
         .package(url: "https://github.com/vapor/console.git", from: "3.0.0"),
