@@ -1,5 +1,5 @@
 //
-//  GenerateCommand.swift
+//  ConvertCommand.swift
 //  Async
 //
 //  Created by Luke Street on 12/24/18.
@@ -8,9 +8,10 @@
 import Command
 import PlayDocsKit
 
-struct GenerateCommand: CommandProtocol {
+internal struct ConvertCommand: CommandProtocol {
     
-    enum GenerateCommandFlags: CommandFlags {
+    /// Describes flags used to alter `convert` output
+    internal enum ConvertCommandFlags: CommandFlags {
         
         case html
         case open
@@ -34,7 +35,8 @@ struct GenerateCommand: CommandProtocol {
         }
     }
     
-    enum GenerateCommandOptions: CommandOptions {
+    /// Describes options used to alter `convert` output
+    internal enum ConvertCommandOptions: CommandOptions {
         
         case destination
         
@@ -51,7 +53,8 @@ struct GenerateCommand: CommandProtocol {
         }
     }
     
-    enum GenerateCommandArguments: CommandArguments {
+    /// Describes arguments used to define `convert` output
+    internal enum ConvertCommandArguments: CommandArguments {
         
         case source
         
@@ -66,17 +69,19 @@ struct GenerateCommand: CommandProtocol {
         }
     }
     
-    typealias Flags = GenerateCommandFlags
-    typealias Options = GenerateCommandOptions
-    typealias Arguments = GenerateCommandArguments
+    internal typealias Flags = ConvertCommandFlags
+    internal typealias Options = ConvertCommandOptions
+    internal typealias Arguments = ConvertCommandArguments
     
-    var help: [String] {
+    /// Describes command
+    internal var help: [String] {
         return [
-            "Generate takes in a .swift or .playground files and will format and output that file as a .md or .html"
+            "Convert takes in a .swift or .playground files and will format and output that file as a .md or .html"
         ]
     }
     
-    func run(using context: CommandContext) throws -> EventLoopFuture<Void> {
+    /// Runs the command against the supplied input.
+    internal func run(using context: CommandContext) throws -> EventLoopFuture<Void> {
         let ext = context.flag(Flags.html) ? "html" : "md"
         let sourcePath = try context.argument(Arguments.source)
         let suppliedSourceURL = URL(fileURLWithPath: sourcePath)

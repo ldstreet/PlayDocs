@@ -1,121 +1,36 @@
 import Foundation
-
-enum Token {
-    case multilineStart
-    case multilineEnd
-    case single(line: String)
-    case plain(line: String)
-}
-
-func tokenize(line: String) -> Token {
-    if line
-        .trimmingCharacters(in: .whitespacesAndNewlines)
-        .hasPrefix("/*:") {
-        return Token.multilineStart
-    } else if line.trimmingCharacters(in: .whitespacesAndNewlines).hasPrefix("*/") {
-        return Token.multilineEnd
-    } else if line.trimmingCharacters(in: .whitespacesAndNewlines).hasPrefix("//:") {
-        return Token.single(line: line.replacingOccurrences(of: "//:", with: ""))
-    } else {
-        return Token.plain(line: line)
-    }
-}
-
-enum Chunk {
-    case markdown(text: String, single: Bool)
-    case code(String)
-    case unknown(String)
-    
-    func parse(line: String) -> Chunk {
-        switch self {
-        case .markdown(_, let single):
-            return parseMarkdown(line: line, single: single)
-        case .code(_):
-            return parseCode(line: line)
-        case .unknown(_):
-            return parseUnknown(line: line)
-        }
-        
-    }
-    
-    var line: String {
-        switch self {
-        case .markdown(let str, _):
-            return str
-        case .code(let str):
-            return str
-        case .unknown(let str):
-            return str
-        }
-    }
-    
-}
-
-func parseMarkdown(line: String, single: Bool) -> Chunk {
-    
-    guard !single else {
-        return parseUnknown(line: line)
-    }
-    
-    switch tokenize(line: line) {
-    case .multilineEnd:
-        return .unknown("")
-    default:
-        return .markdown(text: line, single: false)
-    }
-}
-
-func parseUnknown(line: String) -> Chunk {
-    switch tokenize(line: line) {
-    case .multilineStart:
-        return .markdown(text: "", single: false)
-    case .single(let markdownLine):
-        return .markdown(text: markdownLine, single: false)
-    case .plain(let plainLine):
-        return .code(plainLine)
-    default:
-        return .unknown(line)
-    }
-}
-
-func parseCode(line: String) -> Chunk {
-    switch tokenize(line: line) {
-    case .multilineStart:
-        return .markdown(text: "", single: false)
-    case .single(let singleLine):
-        return .markdown(text: singleLine, single: true)
-    default:
-        return .code(line)
-    }
-}
-
-public func convertToMarkdown(from source: URL, to destination: URL) throws {
-    let text = try String(contentsOf: source, encoding: .utf8)
-    let markdown = convertToMarkdown(text: text)
-    try markdown.write(to: destination, atomically: true, encoding: .utf8)
-}
+import SwiftSoup
 
 
-import PerfectMarkdown
-import Splash
+// Typealiases for code clarity
+public typealias SwiftSource = String
+public typealias MarkdownSource = String
+public typealias HTMLSource = String
 
-
-internal func convert(text: String, header: String = "", footer: String = "", conversion convert: (Chunk) -> String) -> String {
-    let lines = text.components(separatedBy: .newlines)
+/// Allows a custom conversion via the conversion closure which exposes found `Chunks` and allows them to be transformed into a converted string
+///
+/// - Parameters:
+///   - source: String to be converted
+///   - header: String to be prepended to output
+///   - footer: String to be appended to output
+///   - convert: Function which performs a conversion given a `Chunk`
+/// - Returns: Converted String
+public func convert(source: SwiftSource, prepending header: String = "", appending footer: String = "", conversion convert: (Chunk) -> String) -> String {
+    let lines = source.components(separatedBy: .newlines)
     
     
-    let html = lines
-        .reduce((Chunk.unknown(""), header)) { (result, line) -> (Chunk, String) in
+    let (_, html) = lines
+        .reduce((Chunk.unknown(text: ""), header)) { (result, line) -> (Chunk, String) in
             let (currentChunk, result) = result
-            let newChunk = currentChunk.parse(line: line)
+            let newChunk = currentChunk.parse(nextLine: line)
             
             switch (currentChunk, newChunk) {
             case (.code(let oldText), .code(let newText)):
-                return (.code("\(oldText)\n\(newText)"), result)
+                return (.code(text: "\(oldText)\n\(newText)"), result)
             case (.markdown(let oldText, _), .markdown(let newText, _)):
                 return (.markdown(text: "\(oldText)\n\(newText.trimmingCharacters(in: .whitespaces))", single: false), result)
             case (.unknown(let oldText), .unknown(let newText)):
-                return (.unknown("\(oldText)\n\(newText)"), result)
+                return (.unknown(text: "\(oldText)\n\(newText)"), result)
             default:
                 let newStr = convert(currentChunk)
                 return (newChunk, "\(result)\n\(newStr)")
@@ -123,12 +38,16 @@ internal func convert(text: String, header: String = "", footer: String = "", co
             
     }
     
-    return html.1 + footer
+    return html + footer
 }
 
-public func convertToMarkdown(text: String) -> String {
+/// Converts Swift Source code into Markdown
+///
+/// - Parameter source: String of Swift source code
+/// - Returns: String of valid markdown
+public func convertToMarkdown(from source: SwiftSource) -> MarkdownSource {
     
-    return convert(text: text) { chunk -> String in
+    return convert(source: source) { chunk -> String in
         switch chunk {
         case .markdown(let text, _):
             return text
@@ -141,17 +60,30 @@ public func convertToMarkdown(text: String) -> String {
     }
 }
 
-import SwiftSoup
+/// Converts a swift source file to markdown and saves it to destinatoin
+///
+/// - Parameters:
+///   - source: URL pointing to Swift Source file
+///   - destination: URL pointing to intended destination for Markdown
+/// - Throws: Throws any errors that may occur during read and write operations
+public func convertToMarkdown(from source: URL, to destination: URL) throws {
+    let text = try String(contentsOf: source, encoding: .utf8)
+    let markdown = convertToMarkdown(from: text)
+    try markdown.write(to: destination, atomically: true, encoding: .utf8)
+}
 
-public func convertToHTML(text: String) throws -> String {
-    let markdown = convertToMarkdown(text: text)
-    let html = markdown.markdownToHTML ?? ""
+/// Converts Swift Source code into HTML
+///
+/// - Parameter source: String of Swift source code
+/// - Returns: String of valid html including CSS
+public func convertToHTML(from source: SwiftSource) throws -> HTMLSource {
+    let markdown = convertToMarkdown(from: source)
+    let html = current.convertToHTML(markdown) ?? ""
     
     let doc = try parse(html)
     
     try doc.select("code").forEach {  element in
-        let highlighter = SyntaxHighlighter(format: HTMLOutputFormat())
-        let highlightedCode = highlighter.highlight(try element.text())
+        let highlightedCode = current.convertToHighlightedHTML(try element.text())
         try element.html(highlightedCode)
     }
     
@@ -225,8 +157,14 @@ public func convertToHTML(text: String) throws -> String {
     
 }
 
+/// Converts a swift source file to html and saves it to destinatoin
+///
+/// - Parameters:
+///   - source: URL pointing to Swift Source file
+///   - destination: URL pointing to intended destination for HTML
+/// - Throws: Throws any errors that may occur during read and write operations
 public func convertToHTML(from source: URL, to destination: URL) throws {
     let text = try String(contentsOf: source, encoding: .utf8)
-    let markdown = try convertToHTML(text: text)
+    let markdown = try convertToHTML(from: text)
     try markdown.write(to: destination, atomically: true, encoding: .utf8)
 }

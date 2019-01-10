@@ -10,7 +10,7 @@ let container =
     )
 
 var config = CommandConfig()
-config.use(GenerateCommand(), as: "generate", isDefault: true)
+config.use(ConvertCommand(), as: "convert", isDefault: true)
 
 let group = try config.resolve(for: container).group()
 var input = CommandInput(arguments: CommandLine.arguments)

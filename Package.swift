@@ -34,5 +34,9 @@ let package = Package(
             name: "PlayDocsTests",
             dependencies: ["PlayDocs"]
         ),
+        .testTarget(
+            name: "PlayDocsKitTests",
+            dependencies: ["PlayDocsKit"]
+        ),
     ]
 )

@@ -10,22 +10,22 @@ You can use PlayDocs both as a commandline tool or as a framework in your own co
 ### Commandline Tool
 Here is the basic command for generating a readme via a Playground:
 ```
-playdocs generate ./MyPlayground.playground
+playdocs convert ./MyPlayground.playground
 ```
 
 And if you want it to output as html:
 ```
-playdocs generate ./MyPlayground.playground --html
+playdocs convert ./MyPlayground.playground --html
 ```
 
-To open the generated file immediately have creation:
+To open the converted file immediately have creation:
 ```
-playdocs generate ./MyPlayground.playground --html --open
+playdocs convert ./MyPlayground.playground --html --open
 ```
 
 To specify a destination:
 ```
-playdocs generate ./MyPlayground.playground --destination /path/to/file/MyFile.md --open
+playdocs convert ./MyPlayground.playground --destination /path/to/file/MyFile.md --open
 ```
 
 ### Package

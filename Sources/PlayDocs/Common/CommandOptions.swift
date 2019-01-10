@@ -6,13 +6,16 @@
 //
 
 import Command
+import PlayDocsKit
 
+/// Describes type that may be used as a `Command's` options - best modeled as an enum
 public protocol CommandOptions: CaseIterable {
     var option: CommandOption { get }
 }
 
 extension CommandOptions {
+    /// Exposes all options defined by conforming type
     public static var options: [CommandOption] {
-        return Self.allCases.map { $0.option }
+        return Self.allCases.map(get(\.option))
     }
 }
