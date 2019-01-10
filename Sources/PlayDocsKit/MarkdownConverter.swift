@@ -19,7 +19,7 @@ public func convert(source: SwiftSource, prepending header: String = "", appendi
     let lines = source.components(separatedBy: .newlines)
     
     
-    let (_, html) = lines
+    let (lastChunk, html) = lines
         .reduce((Chunk.unknown(text: ""), header)) { (result, line) -> (Chunk, String) in
             let (currentChunk, result) = result
             let newChunk = currentChunk.parse(nextLine: line)
@@ -27,18 +27,36 @@ public func convert(source: SwiftSource, prepending header: String = "", appendi
             switch (currentChunk, newChunk) {
             case (.code(let oldText), .code(let newText)):
                 return (.code(text: "\(oldText)\n\(newText)"), result)
-            case (.markdown(let oldText, _), .markdown(let newText, _)):
-                return (.markdown(text: "\(oldText)\n\(newText.trimmingCharacters(in: .whitespaces))", single: false), result)
+            case (.markdown(let oldText, _, let start), .markdown(let newText, _, _)):
+                if start {
+                    return (.markdown(text: oldText.appendWithNewlineIfNotEmpty(newText.trimmingCharacters(in: .whitespaces)), single: false, start: false), result)
+                } else {
+                    return (.markdown(text: "\(oldText)\n\(newText.trimmingCharacters(in: .whitespaces))", single: false, start: false), result)
+                }
+                
             case (.unknown(let oldText), .unknown(let newText)):
                 return (.unknown(text: "\(oldText)\n\(newText)"), result)
             default:
                 let newStr = convert(currentChunk)
-                return (newChunk, "\(result)\n\(newStr)")
+                let newResult = result.appendWithNewlineIfNotEmpty(newStr)
+                return (newChunk, newResult)
             }
             
     }
-    
-    return html + footer
+    return html
+        .appendWithNewlineIfNotEmpty(convert(lastChunk))
+        .appendWithNewlineIfNotEmpty(footer)
+}
+
+extension String {
+    func appendWithNewline(_ text: String) -> String {
+        return "\(self)\n\(text)"
+    }
+    func appendWithNewlineIfNotEmpty(_ text: String) -> String {
+        guard !text.isEmpty else { return self }
+        guard !self.isEmpty else { return text }
+        return appendWithNewline(text)
+    }
 }
 
 /// Converts Swift Source code into Markdown
@@ -49,13 +67,13 @@ public func convertToMarkdown(from source: SwiftSource) -> MarkdownSource {
     
     return convert(source: source) { chunk -> String in
         switch chunk {
-        case .markdown(let text, _):
+        case .markdown(let text, _, _):
             return text
         case .code(let text):
             guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return "" }
-            return "\n```swift\n\(text)\n```\n"
+            return "```swift\n\(text)\n```"
         case .unknown(let text):
-            return "\n\(text)"
+            return text
         }
     }
 }
@@ -78,12 +96,12 @@ public func convertToMarkdown(from source: URL, to destination: URL) throws {
 /// - Returns: String of valid html including CSS
 public func convertToHTML(from source: SwiftSource) throws -> HTMLSource {
     let markdown = convertToMarkdown(from: source)
-    let html = current.convertToHTML(markdown) ?? ""
+    let html = Current.convertToHTML(markdown) ?? ""
     
     let doc = try parse(html)
     
     try doc.select("code").forEach {  element in
-        let highlightedCode = current.convertToHighlightedHTML(try element.text())
+        let highlightedCode = Current.convertToHighlightedHTML(try element.text())
         try element.html(highlightedCode)
     }
     

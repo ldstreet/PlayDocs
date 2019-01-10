@@ -11,7 +11,7 @@
 /// - code: A chunk of source code
 /// - unknown: A chunk of undefined source. (Not sure if this case is necessary. Perhaps it can be removed in the future?)
 public enum Chunk {
-    case markdown(text: String, single: Bool)
+    case markdown(text: String, single: Bool, start: Bool)
     case code(text: String)
     case unknown(text: String)
     
@@ -21,7 +21,7 @@ public enum Chunk {
     /// - Returns: The `Chunk` representing the next line of code
     internal func parse(nextLine line: String) -> Chunk {
         switch self {
-        case .markdown(_, let single):
+        case .markdown(_, let single, _):
             return parseMarkdown(line: line, single: single)
         case .code(_):
             return parseCode(line: line)
@@ -34,7 +34,7 @@ public enum Chunk {
     /// returns the text contained within the chunk
     var text: String {
         switch self {
-        case .markdown(let str, _):
+        case .markdown(let str, _, _):
             return str
         case .code(let str):
             return str
@@ -61,7 +61,7 @@ internal func parseMarkdown(line: String, single: Bool) -> Chunk {
     case .multilineEnd:
         return .unknown(text: "")
     default:
-        return .markdown(text: line, single: false)
+        return .markdown(text: line, single: false, start: false)
     }
 }
 
@@ -73,9 +73,9 @@ internal func parseMarkdown(line: String, single: Bool) -> Chunk {
 internal func parseUnknown(line: String) -> Chunk {
     switch tokenize(line: line) {
     case .multilineStart:
-        return .markdown(text: "", single: false)
+        return .markdown(text: "", single: false, start: true)
     case .single(let markdownLine):
-        return .markdown(text: markdownLine, single: false)
+        return .markdown(text: markdownLine, single: false, start: false)
     case .plain(let plainLine):
         return .code(text: plainLine)
     default:
@@ -91,9 +91,9 @@ internal func parseUnknown(line: String) -> Chunk {
 internal func parseCode(line: String) -> Chunk {
     switch tokenize(line: line) {
     case .multilineStart:
-        return .markdown(text: "", single: false)
+        return .markdown(text: "", single: false, start: true)
     case .single(let singleLine):
-        return .markdown(text: singleLine, single: true)
+        return .markdown(text: singleLine, single: true, start: false)
     default:
         return .code(text: line)
     }

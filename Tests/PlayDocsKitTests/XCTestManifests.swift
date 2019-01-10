@@ -3,7 +3,7 @@ import XCTest
 #if !os(macOS)
 public func allTests() -> [XCTestCaseEntry] {
     return [
-        testCase(PlayDocsKitTests.allTests),
+        testCase(ConvertTests.allTests),
     ]
 }
 #endif
