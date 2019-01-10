@@ -14,7 +14,7 @@ PlayDocs is command line tool for converting Swift Playgrounds to Markdown and H
 
 You can use PlayDocs both as a commandline tool or as a framework in your own code.
 
-### 🛠 Commandline Tool 
+### As a commandline tool...
 Here is the basic command for generating a readme via a Playground:
 ```
 playdocs convert ./MyPlayground.playground
@@ -35,7 +35,7 @@ To specify a destination:
 playdocs convert ./MyPlayground.playground --destination /path/to/file/MyFile.md --open
 ```
 
-### 🎁 Package 
+### As a package...
 To make your conversions in swift, you can use `PlayDocsKit`
 
 ``` swift
