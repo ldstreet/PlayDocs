@@ -5,7 +5,7 @@
 //  Created by Luke Street on 1/9/19.
 //
 
-import PerfectMarkdown
+import SwiftMarkdown
 import Splash
 
 /// The current world. Only allow to be modified if in debug.
@@ -19,7 +19,7 @@ internal let Current = World()
 internal struct World {
     
     /// Takes in Markdown String and converts to HTML String
-    internal var convertToHTML: (MarkdownSource) -> HTMLSource? = get(\.markdownToHTML)
+    internal var convertToHTML: (MarkdownSource) -> HTMLSource? = { return try? markdownToHTML($0) }
     
     /// Takes in Swift source String and converts to HTML String with highlighting tags
     internal var convertToHighlightedHTML: (SwiftSource) -> HTMLSource = SyntaxHighlighter.highlight(SyntaxHighlighter(format: HTMLOutputFormat()))

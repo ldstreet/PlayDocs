@@ -74,6 +74,34 @@ final class ConvertTests: XCTestCase {
         
         XCTAssertEqual(convertedText, expectedConvertedText)
     }
+    
+    func testConvert_MultipleLinesOfMarkdownAndCode() throws {
+        let source = """
+        /*:
+        ## Hello, World ##
+        It's a-me, a-Mario!
+        */
+
+        func helloWorld() {
+            print("Hello, World!")
+        }
+        """
+        
+        let expectedConvertedText = """
+        ## HELLO, WORLD ##
+        IT'S A-ME, A-MARIO!
+
+        FUNC HELLOWORLD() {
+            PRINT("HELLO, WORLD!")
+        }
+        """
+        
+        let convertedText = convert(source: source) { chunk in
+            return chunk.text.uppercased()
+        }
+        
+        XCTAssertEqual(convertedText, expectedConvertedText)
+    }
 
     static var allTests = [
         ("testConvert_SingleLineOfCode", testConvert_SingleLineOfCode),

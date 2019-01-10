@@ -13,7 +13,7 @@ let package = Package(
         /// 💻 APIs for creating interactive CLI tools.
         .package(url: "https://github.com/vapor/console.git", from: "3.0.0"),
         
-        .package(url: "https://github.com/PerfectlySoft/Perfect-Markdown.git", from: "3.0.0"),
+        .package(url: "https://github.com/vapor-community/markdown.git", from: "0.4.0"),
         
         .package(url: "https://github.com/JohnSundell/Splash", from: "0.1.4"),
         
@@ -28,11 +28,7 @@ let package = Package(
         ),
         .target(
             name: "PlayDocsKit",
-            dependencies: ["Console", "Command", "PerfectMarkdown", "Splash", "SwiftSoup"]
-        ),
-        .testTarget(
-            name: "PlayDocsTests",
-            dependencies: ["PlayDocs"]
+            dependencies: ["Console", "Command", "Splash", "SwiftSoup", "SwiftMarkdown"]
         ),
         .testTarget(
             name: "PlayDocsKitTests",

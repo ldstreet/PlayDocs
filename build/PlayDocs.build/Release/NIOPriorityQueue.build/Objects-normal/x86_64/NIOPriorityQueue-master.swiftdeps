@@ -1,0 +1,6 @@
+version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
+options: "86731bebb908a9f84bcb1a3fa96fb287"
+build_time: [1547099127, 123898000]
+inputs:
+  "/Users/ldstreet/iOS/PlayDocs/.build/checkouts/swift-nio.git-2125732120544497917/Sources/NIOPriorityQueue/Heap.swift": [9223372036, 854775807]
+  "/Users/ldstreet/iOS/PlayDocs/.build/checkouts/swift-nio.git-2125732120544497917/Sources/NIOPriorityQueue/PriorityQueue.swift": [9223372036, 854775807]
