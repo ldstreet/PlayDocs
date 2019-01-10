@@ -1,6 +1,0 @@
-version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
-options: "1eab8a704962322f5af1b285b3fe5ec8"
-build_time: [1547099130, 360170000]
-inputs:
-  "/Users/ldstreet/iOS/PlayDocs/.build/checkouts/swift-nio.git-2125732120544497917/Sources/NIOConcurrencyHelpers/atomics.swift": [9223372036, 854775807]
-  "/Users/ldstreet/iOS/PlayDocs/.build/checkouts/swift-nio.git-2125732120544497917/Sources/NIOConcurrencyHelpers/lock.swift": [9223372036, 854775807]

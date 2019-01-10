@@ -1,7 +1,7 @@
 import XCTest
 
-import PlayDocsTests
+import PlayDocsKitTests
 
 var tests = [XCTestCaseEntry]()
-tests += PlayDocsTests.allTests()
+tests += PlayDocsKitTests.allTests()
 XCTMain(tests)

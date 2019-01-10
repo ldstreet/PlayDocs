@@ -15,7 +15,7 @@ public typealias HTMLSource = String
 ///   - footer: String to be appended to output
 ///   - convert: Function which performs a conversion given a `Chunk`
 /// - Returns: Converted String
-public func convert(source: SwiftSource, prepending header: String = "", appending footer: String = "", conversion convert: (Chunk) -> String) -> String {
+public func convert(from source: SwiftSource, prepending header: String = "", appending footer: String = "", conversion convert: (Chunk) -> String) -> String {
     
     let lines = source.components(separatedBy: .newlines)
     
@@ -48,21 +48,13 @@ public func convert(source: SwiftSource, prepending header: String = "", appendi
         .appendWithNewlineIfNotEmpty(footer)
 }
 
-extension String {
-    func appendWithNewlineIfNotEmpty(_ text: String) -> String {
-        guard !text.isEmpty else { return self }
-        guard !self.isEmpty else { return text }
-        return "\(self)\n\(text)"
-    }
-}
-
 /// Converts Swift Source code into Markdown
 ///
 /// - Parameter source: String of Swift source code
 /// - Returns: String of valid markdown
 public func convertToMarkdown(from source: SwiftSource) -> MarkdownSource {
     
-    return convert(source: source) { chunk -> String in
+    return convert(from: source) { chunk -> String in
         switch chunk {
         case .markdown(let text, _, _):
             return text

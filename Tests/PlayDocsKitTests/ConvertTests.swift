@@ -12,7 +12,7 @@ final class ConvertTests: XCTestCase {
         FUNC HELLOWORLD() {}
         """
         
-        let convertedText = convert(source: source) { chunk in
+        let convertedText = convert(from: source) { chunk in
             return chunk.text.uppercased()
         }
         
@@ -32,7 +32,7 @@ final class ConvertTests: XCTestCase {
         }
         """
         
-        let convertedText = convert(source: source) { chunk in
+        let convertedText = convert(from: source) { chunk in
             return chunk.text.uppercased()
         }
         
@@ -48,7 +48,7 @@ final class ConvertTests: XCTestCase {
          ## HELLO WORLD ##
         """
         
-        let convertedText = convert(source: source) { chunk in
+        let convertedText = convert(from: source) { chunk in
             return chunk.text.uppercased()
         }
         
@@ -68,7 +68,7 @@ final class ConvertTests: XCTestCase {
         IT'S A-ME, A-MARIO!
         """
         
-        let convertedText = convert(source: source) { chunk in
+        let convertedText = convert(from: source) { chunk in
             return chunk.text.uppercased()
         }
         
@@ -96,7 +96,7 @@ final class ConvertTests: XCTestCase {
         }
         """
         
-        let convertedText = convert(source: source) { chunk in
+        let convertedText = convert(from: source) { chunk in
             return chunk.text.uppercased()
         }
         

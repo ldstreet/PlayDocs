@@ -5,6 +5,7 @@
 ![Platforms](https://img.shields.io/badge/Platforms-macOS_Linux-blue.svg)
 [![Git Version](https://img.shields.io/github/release/ldstreet/PlayDocs.svg)](https://github.com/ldstreet/PlayDocs/releases)
 [![license](https://img.shields.io/github/license/ldstreet/PlayDocs.svg)](https://github.com/ldstreet/PlayDocs/blob/master/LICENSE)
+[![Twitter](https://img.shields.io/badge/Twitter-@street_luke-blue.svg)](https://twitter.com/street_luke)
 
 ## 💡 Overview 
 
@@ -15,7 +16,7 @@ PlayDocs is command line tool for converting Swift Playgrounds to Markdown and H
 You can use PlayDocs both as a commandline tool or as a framework in your own code.
 
 ### As a commandline tool...
-Here is the basic command for generating a readme via a Playground:
+Here is the basic command for generating a markdown file via a Playground:
 ```
 playdocs convert ./MyPlayground.playground
 ```
@@ -40,18 +41,26 @@ To make your conversions in swift, you can use `PlayDocsKit`
 
 ``` swift
 
-// Convert swift source from a string to a markdown string
-public func convertToMarkdown(text: String) -> String
+// Convert swift source from a swift source string to a markdown string
+public func convertToMarkdown(from source: SwiftSource) -> MarkdownSource
 
 // Convert swift source from a file to a markdown file
 public func convertToMarkdown(from source: URL, to destination: URL) throws
 
-// Convert swift source from a string to a html string
-public func convertToHTML(text: String) throws -> String
+// Convert swift source from a string to an html string
+public func convertToHTML(from source: SwiftSource) throws -> HTMLSource
 
 // Convert swift source from a file to a html file
 public func convertToHTML(from source: URL, to destination: URL) throws
+
+// Custom conversion allowing caller to convert each Chunk as seen fit
+public func convert(from source: SwiftSource, prepending header: String = "", appending footer: String = "", conversion convert: (Chunk) -> String) -> String
 ```
+
+## 🖍 Syntax Highlighting
+Syntax highlighting for all Swift code is applied via John Sundell's [Splash](https://github.com/JohnSundell/Splash)
+
+Note: For now, the theme for syntax highlighting is hardcoded, but in the future this project should make the theme configurable.
 
 ## ⬇️ Installing 
 
