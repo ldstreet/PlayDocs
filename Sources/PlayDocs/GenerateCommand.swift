@@ -81,7 +81,8 @@ struct GenerateCommand: CommandProtocol {
         let sourcePath = try context.argument(Arguments.source)
         let suppliedSourceURL = URL(fileURLWithPath: sourcePath)
         let sourceURL: URL
-        guard (try? suppliedSourceURL.checkPromisedItemIsReachable()) == true else {
+        
+        guard FileManager.default.fileExists(atPath: suppliedSourceURL.path) else {
             print("No file or playground exists at \(sourcePath)")
             exit(1)
         }
