@@ -28,10 +28,11 @@ public func convert(from source: SwiftSource, prepending header: String = "", ap
             case (.code(let oldText), .code(let newText)):
                 return (.code(text: "\(oldText)\n\(newText)"), result)
             case (.markdown(let oldText, _, let start), .markdown(let newText, _, _)):
+                
                 if start {
-                    return (.markdown(text: oldText.appendWithNewlineIfNotEmpty(newText.trimmingCharacters(in: .whitespaces)), single: false, start: false), result)
+                    return (.markdown(text: oldText.appendWithNewlineIfNotEmpty(newText), single: false, start: false), result)
                 } else {
-                    return (.markdown(text: "\(oldText)\n\(newText.trimmingCharacters(in: .whitespaces))", single: false, start: false), result)
+                    return (.markdown(text: "\(oldText)\n\(newText)", single: false, start: false), result)
                 }
                 
             case (.unknown(let oldText), .unknown(let newText)):
