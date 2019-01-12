@@ -38,15 +38,6 @@
         }
       },
       {
-        "package": "PerfectMarkdown",
-        "repositoryURL": "https://github.com/PerfectlySoft/Perfect-Markdown.git",
-        "state": {
-          "branch": null,
-          "revision": "1820443a6a877d94694f55867e793103f6dca1dc",
-          "version": "3.0.0"
-        }
-      },
-      {
         "package": "Service",
         "repositoryURL": "https://github.com/vapor/service.git",
         "state": {
@@ -80,6 +71,15 @@
           "branch": null,
           "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
           "version": "1.0.0"
+        }
+      },
+      {
+        "package": "Overture",
+        "repositoryURL": "https://github.com/pointfreeco/swift-overture.git",
+        "state": {
+          "branch": null,
+          "revision": "d748c1351354ec34e591dd04662ddb58b7e01180",
+          "version": "0.3.1"
         }
       },
       {

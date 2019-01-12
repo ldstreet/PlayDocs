@@ -7,15 +7,31 @@
 
 import Command
 import PlayDocsKit
+import Overture
 
 /// Describes type that may be used as a `Command's` options - best modeled as an enum
 public protocol CommandFlags: CaseIterable {
-    var flag: CommandOption { get }
+    
+    var name: String { get }
+    
+    var short: Character? { get }
+    
+    var help: [String] { get }
+}
+
+extension CommandFlags {
+    public var name: String { return self.caseName }
+    public var short: Character? { return self.caseName.first }
+    public var help: [String] { return [] }
 }
 
 extension CommandFlags {
     /// Exposes all flags defined by conforming type
     public static var flags: [CommandOption] {
-        return Self.allCases.map(get(\.flag))
+        return zip(
+            Self.allCases.map(get(\Self.caseName)),
+            Self.allCases.map(get(\Self.caseName.first)),
+            Self.allCases.map(get(\.help))
+        ).map(CommandOption.flag)
     }
 }

@@ -11,6 +11,7 @@ let container =
 
 var config = CommandConfig()
 config.use(ConvertCommand(), as: "convert", isDefault: true)
+config.use(NewCommand(), as: "new", isDefault: false)
 
 let group = try config.resolve(for: container).group()
 var input = CommandInput(arguments: CommandLine.arguments)

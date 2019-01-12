@@ -11,67 +11,50 @@ import PlayDocsKit
 internal struct ConvertCommand: CommandProtocol {
     
     /// Describes flags used to alter `convert` output
-    internal enum ConvertCommandFlags: CommandFlags {
+    internal enum Flags: CommandFlags {
         
         case html
         case open
         
-        var flag: CommandOption {
+        var help: [String] {
             switch self {
-                
-            case .html:
-                return .flag(
-                    name: "html",
-                    short: "h",
-                    help: ["Output as html"]
-                )
-            case .open:
-                return .flag(
-                    name: "open",
-                    short: "o",
-                    help: ["Open file after generating"]
-                )
+            case .html: return ["Output as html"]
+            case .open: return ["Open file after generating"]
             }
         }
     }
     
     /// Describes options used to alter `convert` output
-    internal enum ConvertCommandOptions: CommandOptions {
+    internal enum Options: CommandOptions {
         
         case destination
         
-        var option: CommandOption {
+        var defaultValue: String? {
             switch self {
             case .destination:
-                return .value(
-                    name: "destination",
-                    short: "d",
-                    default: ".",
-                    help: ["Path to output destination."]
-                )
+                return "."
+            }
+        }
+        
+        var help: [String] {
+            switch self {
+            case .destination: return ["Path to output destination."]
             }
         }
     }
     
     /// Describes arguments used to define `convert` output
-    internal enum ConvertCommandArguments: CommandArguments {
-        
+    internal enum Arguments: CommandArguments {
+    
         case source
         
-        var argument: CommandArgument {
+        var help: [String] {
             switch self {
             case .source:
-                return .argument(
-                    name: "source",
-                    help: ["Path to .swift or .playground file."]
-                )
+                return ["Path to .swift or .playground file."]
             }
         }
     }
-    
-    internal typealias Flags = ConvertCommandFlags
-    internal typealias Options = ConvertCommandOptions
-    internal typealias Arguments = ConvertCommandArguments
     
     /// Describes command
     internal var help: [String] {
@@ -88,7 +71,7 @@ internal struct ConvertCommand: CommandProtocol {
         let sourceURL: URL
         
         guard FileManager.default.fileExists(atPath: suppliedSourceURL.path) else {
-            print("No file or playground exists at \(sourcePath)")
+            context.console.output("No file or playground exists at \(sourcePath)", style: .error)
             exit(1)
         }
         if suppliedSourceURL.pathExtension == "playground" {
@@ -114,10 +97,9 @@ internal struct ConvertCommand: CommandProtocol {
                     to: destinationURL
                 )
             }
-            
-            print("Converted successfully. You can find your markdown file at \(destinationURL.path)")
+            context.console.output("Converted successfully. You can find your markdown file at \(destinationURL.path)", style: .success)
         } catch {
-            print(error.localizedDescription)
+            context.console.output(error.localizedDescription, style: .error)
             exit(1)
         }
         

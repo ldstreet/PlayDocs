@@ -15,7 +15,7 @@ extension CommandContext {
     /// - Parameter key: CommandOptions case corresponding to desired option
     /// - Returns: The corresponding option if it has been provided by the user
     public func option<Key: CommandOptions>(_ key: Key) -> String? {
-        return option(key.option.name)
+        return option(key.caseName)
     }
     
     /// Uses case of `CommandFlags` as a key to retrieve whether the flag has been provided
@@ -23,7 +23,7 @@ extension CommandContext {
     /// - Parameter key: CommandFlags case corresponding to desired flag
     /// - Returns: `true` if flag has been provided, `false` if not
     public func flag<Key: CommandFlags>(_ key: Key) -> Bool {
-        return flag(key.flag.name)
+        return flag(key.caseName)
     }
     
     /// Uses case of `CommandArguments` as a key to retrieve an argument
@@ -31,7 +31,7 @@ extension CommandContext {
     /// - Parameter key: CommandArguments case corresponding to desired argument
     /// - Returns: The corresponding argument
     public func argument<Key: CommandArguments>(_ key: Key) throws -> String {
-        return try argument(key.argument.name)
+        return try argument(key.caseName)
     }
     
     /// Uses string key to retrieve an option if it has been provided

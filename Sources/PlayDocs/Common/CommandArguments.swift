@@ -7,15 +7,34 @@
 
 import Command
 import PlayDocsKit
+import Overture
 
 /// Describes type that may be used as a `Command's` arguments - best modeled as an enum
 public protocol CommandArguments: CaseIterable {
-    var argument: CommandArgument { get }
+    var name: String { get }
+    var help: [String] { get }
+}
+
+extension CommandArguments {
+    public var name: String { return self.caseName }
+    public var help: [String] { return [] }
+}
+
+extension CaseIterable {
+    var caseName: String { return String(describing: self) }
 }
 
 extension CommandArguments {
     /// Exposes all arguments defined by conforming type
     public static var arguments: [CommandArgument] {
-        return Self.allCases.map(get(\.argument))
+        return zip(
+            Self
+                .allCases
+                .map(get(\.caseName)),
+            Self
+                .allCases
+                .map(get(\.help))
+            )
+            .map(CommandArgument.argument)
     }
 }
