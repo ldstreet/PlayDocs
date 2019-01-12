@@ -16,17 +16,14 @@ PlayDocs is command line tool for converting Swift Playgrounds to Markdown and H
 You can use PlayDocs both as a commandline tool or as a framework in your own code.
 
 ### As a commandline tool...
+
+####  Convert
 Here is the basic command for generating a markdown file via a Playground:
 ```
-playdocs convert ./MyPlayground.playground
+playdocs convert ./MyPlayground.playground --open
 ```
 
 And if you want it to output as html:
-```
-playdocs convert ./MyPlayground.playground --html
-```
-
-To open the converted file immediately have creation:
 ```
 playdocs convert ./MyPlayground.playground --html --open
 ```
@@ -34,6 +31,21 @@ playdocs convert ./MyPlayground.playground --html --open
 To specify a destination:
 ```
 playdocs convert ./MyPlayground.playground --destination /path/to/file/MyFile.md --open
+```
+
+#### New
+PlayDocs can also help you easily create new Playground files so you can get your doc started fast:
+```
+playdocs new HelloPlayDocs --open
+```
+
+If you want the Playground to target MacOS:
+```
+playdocs new HelloPlayDocs --macos --open
+```
+And if you don't want any boilerplate in your Playground:
+```
+playdocs new HelloPlayDocs --macos --empty --open
 ```
 
 ### As a package...
@@ -72,6 +84,12 @@ To install the commandline tool:
 $ mint install ldstreet/PlayDocs
 ```
 
+### 🔧 Make 
+
+Run in terminal:
+```
+git clone https://github.com/ldstreet/PlayDocs.git && cd PlayDocs && make install
+```
 
 ### 🏃‍♂️ [Marathon](https://github.com/johnsundell/marathon) 
 Add to your Marathonfile:
@@ -81,17 +99,8 @@ marathon add https://github.com/ldstreet/PlayDocs.git
 Or use the inline dependency syntax:
 
 ```swift
-import Splash // https://github.com/ldstreet/PlayDocs.git
+import PlayDocsKit // https://github.com/ldstreet/PlayDocs.git
 ```
-
-
-### 🔧 Make 
-
-Run in terminal:
-```
-git clone https://github.com/ldstreet/PlayDocs.git && cd PlayDocs && make install
-```
-
 
 ### 🎁 [Swift Package Manager](https://swift.org/package-manager) 
 To use PlayDocsKit add the following to your `Package.swift` file.
