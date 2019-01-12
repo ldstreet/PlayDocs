@@ -19,6 +19,7 @@ final class ConvertToHTMLTests: XCTestCase {
             background-color: #1a1a1a;
             padding: 16px 0;
             border-radius: 16px;
+            word-wrap: normal;
         }
 
         pre code {
@@ -31,6 +32,7 @@ final class ConvertToHTMLTests: XCTestCase {
             overflow-x: auto;
             white-space: pre;
             -webkit-overflow-scrolling: touch;
+            word-wrap: normal;
         }
 
         pre code .keyword {
@@ -99,6 +101,7 @@ final class ConvertToHTMLTests: XCTestCase {
             background-color: #1a1a1a;
             padding: 16px 0;
             border-radius: 16px;
+            word-wrap: normal;
         }
 
         pre code {
@@ -111,6 +114,7 @@ final class ConvertToHTMLTests: XCTestCase {
             overflow-x: auto;
             white-space: pre;
             -webkit-overflow-scrolling: touch;
+            word-wrap: normal;
         }
 
         pre code .keyword {
@@ -177,6 +181,7 @@ final class ConvertToHTMLTests: XCTestCase {
             background-color: #1a1a1a;
             padding: 16px 0;
             border-radius: 16px;
+            word-wrap: normal;
         }
 
         pre code {
@@ -189,6 +194,7 @@ final class ConvertToHTMLTests: XCTestCase {
             overflow-x: auto;
             white-space: pre;
             -webkit-overflow-scrolling: touch;
+            word-wrap: normal;
         }
 
         pre code .keyword {
@@ -255,6 +261,7 @@ final class ConvertToHTMLTests: XCTestCase {
             background-color: #1a1a1a;
             padding: 16px 0;
             border-radius: 16px;
+            word-wrap: normal;
         }
 
         pre code {
@@ -267,6 +274,7 @@ final class ConvertToHTMLTests: XCTestCase {
             overflow-x: auto;
             white-space: pre;
             -webkit-overflow-scrolling: touch;
+            word-wrap: normal;
         }
 
         pre code .keyword {
@@ -338,6 +346,7 @@ final class ConvertToHTMLTests: XCTestCase {
             background-color: #1a1a1a;
             padding: 16px 0;
             border-radius: 16px;
+            word-wrap: normal;
         }
 
         pre code {
@@ -350,6 +359,7 @@ final class ConvertToHTMLTests: XCTestCase {
             overflow-x: auto;
             white-space: pre;
             -webkit-overflow-scrolling: touch;
+            word-wrap: normal;
         }
 
         pre code .keyword {

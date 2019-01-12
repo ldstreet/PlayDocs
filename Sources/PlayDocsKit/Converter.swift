@@ -103,7 +103,7 @@ public func convertToHTML(from source: SwiftSource) throws -> HTMLSource {
         background-color: #1a1a1a;
         padding: 16px 0;
         border-radius: 16px;
-        word-wrap: normal
+        word-wrap: normal;
     }
 
     pre code {
@@ -116,7 +116,7 @@ public func convertToHTML(from source: SwiftSource) throws -> HTMLSource {
         overflow-x: auto;
         white-space: pre;
         -webkit-overflow-scrolling: touch;
-        word-wrap: normal
+        word-wrap: normal;
     }
 
     pre code .keyword {
