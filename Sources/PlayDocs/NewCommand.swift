@@ -71,7 +71,7 @@ internal struct NewCommand: CommandProtocol {
         
         let contents = empty ? "" : """
         /*:
-        # Welcome to PlayDocs
+        # Welcome to PlayDocs 🏓
         
         ### Cheat Sheet:
         *To render markdown:* `Editor -> Show Rendered Markup`
