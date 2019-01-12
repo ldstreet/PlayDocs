@@ -72,7 +72,9 @@ final class ConvertToHTMLTests: XCTestCase {
         }
         </style>
         <html>
-         <head></head>
+         <head>
+          <meta charset="utf-8">
+         </head>
          <body>
           <pre><code class="language-swift"><span class="keyword">func</span> helloWorld() {}</code></pre> 
          </body>
@@ -154,7 +156,9 @@ final class ConvertToHTMLTests: XCTestCase {
         }
         </style>
         <html>
-         <head></head>
+         <head>
+          <meta charset="utf-8">
+         </head>
          <body>
           <pre><code class="language-swift"><span class="keyword">func</span> helloWorld() {
             <span class="call">print</span>(<span class="string">"Hello,</span> <span class="string">World!"</span>)
@@ -234,7 +238,9 @@ final class ConvertToHTMLTests: XCTestCase {
         }
         </style>
         <html>
-         <head></head>
+         <head>
+          <meta charset="utf-8">
+         </head>
          <body>
           <h2>Hello World</h2> 
          </body>
@@ -314,7 +320,9 @@ final class ConvertToHTMLTests: XCTestCase {
         }
         </style>
         <html>
-         <head></head>
+         <head>
+          <meta charset="utf-8">
+         </head>
          <body>
           <h2>Hello, World</h2> 
           <p>It's a-me, a-Mario!</p> 
@@ -399,7 +407,9 @@ final class ConvertToHTMLTests: XCTestCase {
         }
         </style>
         <html>
-         <head></head>
+         <head>
+          <meta charset="utf-8">
+         </head>
          <body>
           <h2>Hello, World</h2> 
           <p>It's a-me, a-Mario!</p> 
