@@ -158,6 +158,7 @@ public func convertToHTML(from source: SwiftSource) throws -> HTMLSource {
     """
     
     try doc.prepend(head)
+    try doc.head()?.html("<meta charset='utf-8'>")
     
     return try doc.html()
     
