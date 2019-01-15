@@ -106,7 +106,7 @@ import PlayDocsKit // https://github.com/ldstreet/PlayDocs.git
 To use PlayDocsKit add the following to your `Package.swift` file.
 ```swift
 // 🏓 A framework for converting Playgrounds and Swift files to markdown and html
-.package(url: "https://github.com/ldstreet/PlayDocs.git", .branch("master")),
+.package(url: "https://github.com/ldstreet/PlayDocs.git", from: "0.1.0"),
 
 .target(name: "MyPackage", dependencies: ["PlayDocsKit"]),
 ```
