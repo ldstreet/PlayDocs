@@ -1,0 +1,1 @@
+Contributing is easy and encouraged. Have an idea, found a bug, or want to improve something? Submit an issue detailing your contribution idea, or better yet, submit a pull request implementing part or all of it! If your idea passes tests and fits well with the project you can plan on it being in the next release.
