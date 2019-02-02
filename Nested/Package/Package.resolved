@@ -1,0 +1,97 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "cmark",
+        "repositoryURL": "https://github.com/brokenhandsio/cmark-gfm.git",
+        "state": {
+          "branch": null,
+          "revision": "351e5cb1bc6a43567b8ff9b9b3f7357c58bdda83",
+          "version": "1.0.1"
+        }
+      },
+      {
+        "package": "Console",
+        "repositoryURL": "https://github.com/vapor/console.git",
+        "state": {
+          "branch": null,
+          "revision": "d6cf07af59ae63cd95c4b5f98cf1f25627750fd1",
+          "version": "3.1.0"
+        }
+      },
+      {
+        "package": "Core",
+        "repositoryURL": "https://github.com/vapor/core.git",
+        "state": {
+          "branch": null,
+          "revision": "96ce86ebf9198328795c4b9cb711489460be083c",
+          "version": "3.4.4"
+        }
+      },
+      {
+        "package": "SwiftMarkdown",
+        "repositoryURL": "https://github.com/vapor-community/markdown.git",
+        "state": {
+          "branch": null,
+          "revision": "aea4876786fa284f6d86af1ce3436a17e22035b5",
+          "version": "0.4.0"
+        }
+      },
+      {
+        "package": "Service",
+        "repositoryURL": "https://github.com/vapor/service.git",
+        "state": {
+          "branch": null,
+          "revision": "281a70b69783891900be31a9e70051b6fe19e146",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "Splash",
+        "repositoryURL": "https://github.com/JohnSundell/Splash",
+        "state": {
+          "branch": null,
+          "revision": "187effae29997c211b87ba7d2885023eab8cb935",
+          "version": "0.1.4"
+        }
+      },
+      {
+        "package": "swift-nio",
+        "repositoryURL": "https://github.com/apple/swift-nio.git",
+        "state": {
+          "branch": null,
+          "revision": "a20e129c22ad00a51c902dca54a5456f90664780",
+          "version": "1.12.0"
+        }
+      },
+      {
+        "package": "swift-nio-zlib-support",
+        "repositoryURL": "https://github.com/apple/swift-nio-zlib-support.git",
+        "state": {
+          "branch": null,
+          "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "Overture",
+        "repositoryURL": "https://github.com/pointfreeco/swift-overture.git",
+        "state": {
+          "branch": null,
+          "revision": "d748c1351354ec34e591dd04662ddb58b7e01180",
+          "version": "0.3.1"
+        }
+      },
+      {
+        "package": "SwiftSoup",
+        "repositoryURL": "https://github.com/scinfu/SwiftSoup.git",
+        "state": {
+          "branch": null,
+          "revision": "11da8c685ddde2d519fad04a7daf8485bbbc773e",
+          "version": "1.7.5"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
